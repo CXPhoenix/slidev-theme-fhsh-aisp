@@ -1,0 +1,48 @@
+{
+  "name": "@cxphoenix/slidev-theme-fhsh-aisp",
+  "version": "0.1.6",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CXPhoenix/slidev-theme-fhsh-aisp.git"
+  },
+  "packageManager": "pnpm@10.5.2",
+  "homepage": "https://github.com/CXPhoenix/slidev-theme-fhsh-aisp#readme",
+  "keywords": [
+    "slidev-theme",
+    "slidev",
+    "fhsh",
+    "aisp"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "slidev build example.md",
+    "dev": "slidev example.md --open",
+    "export": "slidev export example.md",
+    "screenshot": "slidev export example.md --format png"
+  },
+  "dependencies": {
+    "@slidev/types": "^52.1.0",
+    "prettier": "^3.5.3"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^52.1.0",
+    "playwright-chromium": "^1.50.1"
+  },
+  "//": "Learn more: https://sli.dev/guide/write-theme.html",
+  "slidev": {
+    "colorSchema": "light",
+    "defaults": {
+      "fonts": {
+        "sans": "Noto Sans TC",
+        "mono": "Fira Code"
+      },
+      "layout": "cover",
+      "aspectRadio": "16/9",
+      "mdc": true,
+      "title-template": "%s - AiSP"
+    }
+  }
+}
