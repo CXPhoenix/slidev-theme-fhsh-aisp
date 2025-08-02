@@ -3,7 +3,7 @@ import { useSlideContext } from '@slidev/client';
 
 const { $slidev } = useSlideContext();
 const skipPageNumber = () => {
-  return $slidev?.configs.skipPageNumberLayouts.includes($slidev.nav.currentLayout)
+  return $slidev?.configs.skipPageNumberLayouts?.includes($slidev.nav.currentLayout) ?? false
 }
 </script>
 
