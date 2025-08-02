@@ -39,10 +39,10 @@
         "sans": "Noto Sans TC",
         "mono": "Fira Code"
       },
-      "layout": "cover",
+      "layout": "default",
       "aspectRadio": "16/9",
       "mdc": true,
-      "title-template": "%s - AiSP"
+      "titleTemplate": "%s - FHSH AiSP"
     }
   }
 }

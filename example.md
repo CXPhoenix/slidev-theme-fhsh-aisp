@@ -1,5 +1,8 @@
 ---
 theme: ./
+skipPageNumberLayouts:
+  - cover
+  - section
 ---
 
 # Real Title with All slides
