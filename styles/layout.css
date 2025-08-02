@@ -19,7 +19,7 @@
 }
 
 h1 {
-  @apply text-[3.3rem] line-height-none font-bold;
+  @apply text-[3.5rem] line-height-none font-bold;
 }
 
 h2 {
@@ -31,44 +31,39 @@ h3 {
 }
 
 p {
-  @apply text-[28px] line-height-relaxed px-3;
+  @apply text-[1.75rem] line-height-relaxed px-3;
+}
+
+ol,
+ul {
+  @apply list-outside text-[1.75rem] line-height-relaxed pl-12;
+}
+
+ol ol,
+ul ul {
+  @apply text-[1.625rem] line-height-relaxed pl-4;
+}
+
+ol ol ol,
+ul ul ul {
+  @apply text[1.5rem] line-height-relaxed pl-4;
 }
 
 ol {
-  @apply list-outside text-[28px] line-height-relaxed pl-10;
-}
-
-ol ol {
-  @apply text-[26px] line-height-relaxed pl-6;
-}
-
-ol ol ol {
-  @apply text[24px] line-height-relaxed;
-}
-
-ul {
-  @apply list-outside text-[28px] line-height-relaxed pl-10;
-}
-
-ul ul {
-  @apply text-[26px] line-height-relaxed pl-6;
-}
-
-ul ul ul {
-  @apply text-[24px] line-height-relaxed;
+  @apply list-decimal;
 }
 
 ul > li::marker {
   content: "❖ ";
-  @apply text-[28px] line-height-relaxed;
+  @apply text-[1.75rem] line-height-relaxed;
 }
 
 ul ul > li::marker {
   content: "➢ ";
-  @apply text-[26px] line-height-relaxed;
+  @apply text-[1.625rem] line-height-relaxed;
 }
 
 ul ul ul > li::marker {
   content: "◼︎ ";
-  @apply text-[24px] line-height-relaxed;
+  @apply text-[1.5rem] line-height-relaxed;
 }
