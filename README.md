@@ -2,7 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/@cxphoenix/slidev-theme-fhsh-aisp?color=3AB9D4&label=pnpm)](https://www.npmjs.com/package/@cxphoenix/slidev-theme-fhsh-aisp/v/latest)
 
-本專為 [Slidev](https://github.com/slidevjs/slidev) 設計的復興高中 AI 資安學程（FHSH AiSP）簡報佈景主題。 ✨
+為復興高中 AI 資安學程（FHSH AiSP）所設計的 [Slidev](https://github.com/slidevjs/slidev) theme。 ✨
 
 ## 🚀 安裝
 
