@@ -36,7 +36,7 @@ p {
 
 ol,
 ul {
-  @apply list-outside text-[1.75rem] line-height-relaxed pl-12;
+  @apply list-outside text-[1.75rem] line-height-relaxed pl-14;
 }
 
 ol ol,

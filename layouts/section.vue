@@ -22,8 +22,8 @@ import Slogon from '../assets/slogon.svg'
   @apply hidden
 }
 
-.slideSection h1:first-of-type,
-.slideSection h2:first-of-type {
+.slideSection h1:first-of-type *,
+.slideSection h2:first-of-type * {
   @apply block
 }
 
