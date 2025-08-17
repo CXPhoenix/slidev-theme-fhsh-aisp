@@ -18,10 +18,6 @@ import Slogon from '../assets/slogon.svg'
   @apply absolute top-[21%] left-[7%] w-[86%] h-[65%] z-2
 }
 
-.slideSection * {
-  @apply hidden
-}
-
 .slideSection h1:first-of-type *,
 .slideSection h2:first-of-type * {
   @apply block
