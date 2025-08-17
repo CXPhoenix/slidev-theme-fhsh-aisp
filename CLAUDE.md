@@ -55,6 +55,7 @@ No linting, testing, or TypeScript configuration is present in this project.
 ## Writing Guidelines
 
 - 撰寫 README 或是 USAGE 時，全部都使用台灣慣用繁體中文用語書寫，並且要多增加 emoji 以增添整體豐富度。
+- 任何的文件撰寫都不要使用中國大陸用語。
 
 ## Commit Message Guidelines
 
@@ -64,3 +65,4 @@ No linting, testing, or TypeScript configuration is present in this project.
 - Commit message 內容需要以列點方式呈現，每一點最前方都要加入對應的 emoji
   - 詳細說明要清楚描述變更的內容、原因和影響
 - git commit message 只要直接在 stdout 呈現，不用幫我執行 git commit 動作
+- 任何的文件撰寫都不要使用中國大陸用語。

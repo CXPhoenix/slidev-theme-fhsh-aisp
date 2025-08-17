@@ -1,6 +1,6 @@
 {
   "name": "@cxphoenix/slidev-theme-fhsh-aisp",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "type": "module",
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@slidev/types": "^52.1.0",
+    "@vueuse/core": "^13.6.0",
     "prettier": "^3.5.3"
   },
   "devDependencies": {
@@ -42,7 +43,8 @@
       "layout": "default",
       "aspectRadio": "16/9",
       "mdc": true,
-      "titleTemplate": "%s - FHSH AiSP"
+      "titleTemplate": "%s - FHSH AiSP",
+      "favicon": "https://security-program.fhsh.taipei/New AiSP LOGO.png"
     }
   }
 }

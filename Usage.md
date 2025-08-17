@@ -114,7 +114,7 @@ skipPageNumberLayouts:        # 不顯示頁碼的版面
 
 ## 🖼️ 版面配置詳解
 
-本主題提供四種精心設計的版面配置，每種都有其特定的用途和最佳實踐。
+本主題提供四種精心設計的版面配置，另外新增了實驗性的 quiz 測驗版面，每種都有其特定的用途和最佳實踐。
 
 ### 🏠 封面版面 (`cover`)
 
@@ -268,6 +268,81 @@ image: '/path/to/image.jpg'  # ❌ 這個設定不會生效
 其他文字不會顯示  # ❌ 文字會被隱藏
 ```
 
+### 🎮 測驗版面 (`quiz`)
+
+**用途**：互動式測驗功能，適合課堂教學與學習評量
+
+**特色**：
+- 繼承自 default 版面，具有完整的標題顯示功能
+- 內建 MultiChoice 多選題元件
+- 支援離線模式和線上 WebSocket 模式
+- 自動答案驗證與視覺化回饋
+- 可設定正確答案進行即時評分
+
+```markdown
+---
+layout: quiz
+ans: 2
+# isOffline: true  # 預設值，可省略
+---
+
+# 機器學習基礎測驗
+
+下列何者是監督式學習的特徵？
+
+- 不需要標記資料
+- 需要輸入特徵和對應標籤
+- 只能用於聚類分析
+- 無法進行預測
+```
+
+**版面參數設定**：
+
+| 參數 | 類型 | 預設值 | 說明 |
+|------|------|--------|------|
+| `ans` | Number | 0 | 正確答案編號（1-4，0表示不設定答案） |
+| `isOffline` | Boolean | true | 是否使用離線模式（目前僅支援 true） |
+| `wsUrl` | String | "ws://localhost:8000" | WebSocket 服務器地址（🚧 未來功能） |
+
+**重要注意事項**：
+- ✅ **支援完整的 H1 標題顯示**，會作為測驗主題
+- ✅ **自動解析選項**：最後一個清單會被識別為選項
+- ✅ **視覺化回饋**：正確答案顯示綠色，錯誤答案顯示紅色
+- ⚠️ **選項數量限制**：目前支援最多 4 個選項（A、B、C、D）
+- ⚠️ **答案編號**：使用 1-4 表示選項 A-D，0 表示不顯示正確答案
+- 🚧 **目前僅支援離線模式**：線上 WebSocket 模式正在開發中
+
+**答案回饋顏色系統**：
+- 🟢 **綠色邊框**：選擇正確且為標準答案
+- 🔴 **紅色邊框**：選擇錯誤
+- 🟡 **黃色邊框**：已選擇但未設定標準答案（ans=0）
+
+**測驗內容格式**：
+
+```markdown
+---
+layout: quiz
+ans: 3
+---
+
+# 測驗標題
+
+問題描述內容可以有多行
+支援 Markdown 格式
+
+- 選項 A
+- 選項 B  
+- 選項 C
+- 選項 D
+```
+
+**支援模式說明**：
+
+| 模式 | 設定 | 狀態 | 功能說明 |
+|------|------|------|----------|
+| 🔌 **離線模式** | `isOffline: true` | ✅ 可用 | 本地端測驗，適合個人學習或演示 |
+| 🌐 **線上模式** | `isOffline: false` | 🚧 開發中 | 將支援 WebSocket 連接，適合課堂互動 |
+
 ## 💻 程式碼高亮
 
 本主題使用 [Shiki](https://shiki.matsu.io/) 進行專業的語法高亮，內建 `vitesse-light` 和 `vitesse-dark` 兩種精美主題。
@@ -410,6 +485,129 @@ css: |
 </style>
 ```
 
+## 🎮 MultiChoice 元件詳解
+
+### 📦 元件概述
+
+MultiChoice 是本主題的核心互動元件，專為教育場景設計的多選題測驗工具。
+
+**主要功能**：
+- 🎯 **自動題目解析**：從 Markdown 內容自動提取問題和選項
+- 🎨 **視覺化回饋**：即時顯示答案正確性的色彩回饋
+- 🔒 **防重複作答**：選擇後自動鎖定，避免重複點擊
+- 🔌 **離線模式支援**：目前僅支援本地端測驗功能
+
+### ⚙️ 元件屬性
+
+| 屬性名稱 | 類型 | 預設值 | 驗證規則 | 說明 |
+|----------|------|--------|----------|------|
+| `isOffline` | Boolean | `true` | 目前僅支援 true | 控制是否為離線模式 |
+| `wsUrl` | String | `"ws://localhost:8000"` | 未來功能 | WebSocket 連線地址（🚧 預留參數） |
+| `ans` | Number | `0` | 0-4 的整數 | 正確答案編號（0=不設定答案） |
+
+### 🎨 視覺化狀態
+
+MultiChoice 元件提供三種視覺化狀態：
+
+```css
+/* 正確答案 */
+.correct-answer {
+  border: 4px solid #166534; /* 綠色邊框 */
+  background: #4ade80;       /* 綠色背景 */
+}
+
+/* 錯誤答案 */
+.wrong-answer {
+  border: 4px solid #991b1b; /* 紅色邊框 */
+  background: #fb7185;       /* 紅色背景 */
+}
+
+/* 未設定標準答案 */
+.no-standard-answer {
+  border: 4px solid #a16207; /* 黃色邊框 */
+  background: #facc15;       /* 黃色背景 */
+}
+```
+
+### 🔧 使用範例
+
+**基本測驗範例**：
+
+```markdown
+---
+layout: quiz
+ans: 2
+# isOffline: true  # 預設值，可省略
+---
+
+# Python 基礎語法測驗
+
+下列哪個是 Python 中正確的變數命名方式？
+
+- 2variable
+- my_variable
+- my-variable
+- variable@name
+```
+
+**複雜問題範例**：
+
+```markdown
+---
+layout: quiz
+ans: 4
+---
+
+# 機器學習概念測驗
+
+在深度學習中，下列關於卷積神經網路（CNN）的描述，何者正確？
+
+CNN 主要用於處理具有網格結構的資料，如圖像。
+它通過卷積層、池化層和全連接層組成。
+
+- 僅適用於圖像分類任務
+- 不能處理序列資料
+- 只包含卷積層和池化層
+- 善於捕捉局部特徵並具有平移不變性
+```
+
+### 🚧 WebSocket 整合（未來功能）
+
+線上模式目前正在開發中，預計將支援以下功能：
+
+**計劃中的使用方式**：
+
+```yaml
+---
+layout: quiz
+isOffline: false  # 🚧 尚未實作
+wsUrl: "wss://your-server.com/quiz"
+ans: 3
+---
+```
+
+**計劃中的 WebSocket 訊息格式**：
+
+```javascript
+// 客戶端發送答案
+{
+  type: "answer",
+  questionId: "slide-5",
+  answer: 2,
+  timestamp: "2024-01-15T10:30:00Z"
+}
+
+// 服務端回應
+{
+  type: "result", 
+  correct: true,
+  correctAnswer: 2,
+  explanation: "這是正確答案的解釋"
+}
+```
+
+> 📝 **注意**：目前設定 `isOffline: false` 會導致頁面空白，請使用預設的離線模式。
+
 ## ⚡ 進階功能
 
 ### 🎮 簡報互動功能
@@ -493,7 +691,7 @@ graph TD
 
 ### 📚 完整課程簡報範例
 
-以下是一個完整的 AI 資安課程簡報範例：
+以下是一個完整的 AI 資安課程簡報範例，包含測驗功能：
 
 ```markdown
 ---
@@ -537,6 +735,21 @@ layout: section
 - **自動化**：大幅減少人工干預需求
 
 ---
+layout: quiz
+ans: 2
+# isOffline: true  # 預設值，可省略
+---
+
+# 概念測驗：AI 資安優勢
+
+下列何者是 AI 在資安防護上的主要優勢？
+
+- 完全取代人工分析師
+- 能夠偵測未知威脅模式
+- 不需要任何訓練資料
+- 保證 100% 防護成功率
+
+---
 layout: image
 ---
 
@@ -573,6 +786,21 @@ print(f"偵測到 {np.sum(predictions == -1)} 個異常連線")
 ```
 
 ---
+layout: quiz
+ans: 3
+# isOffline: true  # 預設值，可省略
+---
+
+# 程式測驗：Isolation Forest
+
+在上述程式碼中，`contamination=0.1` 參數的意義是什麼？
+
+- 表示訓練資料中有 10% 是正常流量
+- 設定模型的學習率為 0.1
+- 預期異常資料約佔總資料的 10%
+- 設定模型精確度闾值為 90%
+
+---
 layout: section
 ---
 
@@ -596,6 +824,21 @@ layout: section
 - 🔮 生成對抗網路（GAN）在資安的應用
 - 🛡️ 強化學習自動化防護系統
 - 🚀 最新 AI 資安研究趨勢
+
+---
+layout: quiz
+ans: 4
+# isOffline: true  # 預設值，可省略
+---
+
+# 課程回顧測驗
+
+本次課程中，我們討論了哪些 AI 技術在資安的應用？
+
+- 僅討論監督式學習
+- 只介紹了 Isolation Forest
+- 專注於傳統機器學習方法
+- 涵蓋異常偵測和深度學習模型
 
 ---
 
@@ -716,6 +959,64 @@ A: 使用 HTML 標籤：
   您的瀏覽器不支援影片播放
 </video>
 ```
+
+### Q: 測驗功能的選項數量有限制嗎？
+
+A: 是的，目前 MultiChoice 元件支援最多 4 個選項（A、B、C、D）。這是為了確保在投影片上有良好的視覺陣列。如需更多選項，建議：
+
+- 將問題拆分成多個測驗投影片
+- 使用不同的問題類型（是非題、單選題等）
+- 等待未來版本支援更多選項
+
+### Q: 可以自訂測驗的視覺樣式嗎？
+
+A: 可以，請在自訂 CSS 中覆寫相關樣式：
+
+```css
+/* 自訂選項按鈕樣式 */
+.quiz .grid > div {
+  background: linear-gradient(45deg, #f0f9ff, #e0f2fe);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+/* 自訂正確答案樣式 */
+.quiz .border-green-800 {
+  background: linear-gradient(45deg, #10b981, #34d399) !important;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+}
+```
+
+> 目前僅離線模式可用，視覺樣式自訂功能正常。
+
+### Q: 如何設定 WebSocket 服務器？
+
+A: 🚧 **目前線上模式尚未完成實作**。未來將支援 WebSocket 服務器整合，參考實作範例：
+
+```javascript
+// 🚧 計劃中的 WebSocket 服務器實作
+const WebSocket = require('ws');
+const wss = new WebSocket.Server({ port: 8000 });
+
+wss.on('connection', (ws) => {
+  ws.on('message', (message) => {
+    const data = JSON.parse(message);
+    // 處理測驗答案邏輯
+    ws.send(JSON.stringify({
+      type: 'result',
+      correct: data.answer === correctAnswer
+    }));
+  });
+});
+```
+
+> 目前請使用離線模式 (`isOffline: true`) 進行測驗。
+
+### Q: 測驗結果可以匯出或記錄嗎？
+
+A: 目前離線模式下結果僅顯示在頁面上，不支援記錄功能。未來線上模式完成後，將可在 WebSocket 服務器端實作資料庫儲存記錄功能。
+
+> 如需立即使用記錄功能，建議使用其他線上測驗平臺或等待未來版本更新。
 
 ## 📞 技術支援
 
